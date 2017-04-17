@@ -10,7 +10,7 @@ var session = require('express-session')
 var MongoStore = require('connect-mongo')(session)
 
 if (process.env.NODE_ENV === 'gymcount') {
-  mongoose.connect('mongodb://localhost/expexpress-authentication-test')
+  mongoose.connect('mongodb://localhost/gymcount')
 } else {
   mongoose.connect(process.env.MONGODB_URI)
 }

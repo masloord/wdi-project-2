@@ -17,5 +17,5 @@ router.route('/gym')
     res.redirect('/gym')
   })
 })
-
+  
 module.exports = router

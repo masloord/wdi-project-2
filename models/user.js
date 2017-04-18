@@ -20,14 +20,16 @@ var gymUserSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: [8, 'Password must be between 8 and 99 characters'],
-    maxlength: [99, 'Password must be between 8 and 99 characters'],
-    review: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review'
-      }
-    ]
-  }
+    maxlength: [99, 'Password must be between 8 and 99 characters']
+
+  },
+  isUser: Boolean,
+  review: [   
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review'
+    }
+  ]
 
 })
 

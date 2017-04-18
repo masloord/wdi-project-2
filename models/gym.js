@@ -1,10 +1,10 @@
 var mongoose = require('mongoose')
 
 var gymSchema = new mongoose.Schema({
-  name:String,
-  description:String,
-  capcity:Number,
-  review:[]
+  name: String,
+  description: String,
+  capcity: Number,
+  review: []
 
 })
 

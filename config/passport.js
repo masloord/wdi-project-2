@@ -1,6 +1,6 @@
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
-var User = require('../models/gymUser')
+var User = require('../models/user')
 
 passport.serializeUser(function (user, done) {
   done(null, user.id)
@@ -10,7 +10,6 @@ passport.deserializeUser(function (id, done) {
     done(err, user)
   })
 })
-
 passport.use('local-signup', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
@@ -20,7 +19,8 @@ passport.use('local-signup', new LocalStrategy({
   var newUser = new User({
     email: givenEmail,
     name: req.body.name,
-    password: givenPassword
+    password: givenPassword,
+    isUser: req.body.isUser
   })
   newUser.save(function (err, data) {
     if (err) {

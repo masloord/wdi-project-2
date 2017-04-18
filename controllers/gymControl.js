@@ -6,10 +6,10 @@ router.route('/gym')
 .get(function (req, res) {
   Gym.find({}, function (err, allGym) {
     if (err) res.send(err)
-    res.render('gym', allGym)
+    res.render('gym', { allGym: allGym })
   })
 })
-router.route('/gym/new')
+router.route('/gym')
 .post(function (req, res, next) {
   var newGym = new Gym(req.body)
   newGym.save(function (err, newGym) {

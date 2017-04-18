@@ -31,7 +31,7 @@ var gymUserSchema = new mongoose.Schema({
 
 })
 
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcryptjs')
 gymUserSchema.pre('save', function (next) {
   var gymUser = this
   console.log('about TO SAVE user', gymUser)

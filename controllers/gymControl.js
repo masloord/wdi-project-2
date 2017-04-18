@@ -6,7 +6,13 @@ router.route('/gym')
 .get(function (req, res) {
   Gym.find({}, function (err, allGym) {
     if (err) res.send(err)
-    res.render('gym', { allGym: allGym })
+    if (!req.user.isUser) {      // if user is not owner cannot view gym page
+      res.render('gym', {
+        allGym: allGym
+      })
+    } else {
+      res.send('login as Gym Owner')
+    }
   })
 })
 router.route('/gym')
@@ -17,5 +23,5 @@ router.route('/gym')
     res.redirect('/gym')
   })
 })
-  
+
 module.exports = router

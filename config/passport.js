@@ -21,12 +21,36 @@ passport.use('local-signup', new LocalStrategy({
     name: req.body.name,
     password: givenPassword,
     isUser: req.body.isUser
+
   })
   newUser.save(function (err, data) {
     if (err) {
+      req.flash('error', 'Registration failed')
       return next(err)
     }
     next(null, data)
+  })
+}))
+
+passport.use('local-login', new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+  // passReqToCallback: true
+}, function (givenEmail, givenPassword, next) {
+  User.findByEmail(givenEmail, function (err, foundUser) {
+    if (err) return next(err)
+    if (!foundUser) {
+      console.log('no user')
+      next(null, false)
+    }
+    // var givenPassword = givenPassword
+    if (foundUser.validPassword(givenPassword)) {
+      console.log('correct password')
+      return next(null, foundUser)
+    } else {
+      console.log('wrong password')
+      return next(null, false)
+    }
   })
 }))
 

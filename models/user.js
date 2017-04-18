@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
 var Review = require('./review')
+var Gym = require('./gym')
 
 var gymUserSchema = new mongoose.Schema({
   email: {
@@ -24,10 +25,16 @@ var gymUserSchema = new mongoose.Schema({
 
   },
   isUser: Boolean,
-  review: [   
+  review: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review'
+    }
+  ],
+  gym: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Gym'
     }
   ]
 

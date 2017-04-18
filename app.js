@@ -19,19 +19,12 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({
-    url: process.env.MONGODB_URI
-  })
+  store: new MongoStore({ url: process.env.MONGODB_URI })
 }))
 
 var passport = require('./config/passport')
 app.use(passport.initialize())
 app.use(passport.session())
-app.get('/logout', function (req, res) {
-  req.logout()
-  console.log('logged out')
-  res.redirect('/')
-})
 
 app.use(flash())
 app.use(require('morgan')('dev'))
@@ -49,18 +42,36 @@ app.get('/', function (req, res) {
 })
 app.get('/youarelogin', function (req, res) {
   if (!req.isAuthenticated()) {
-    res.redirect('/')
+    res.render('youarelogin')
   }
 })
+
+// =======
+// auth route
+// ===========
 var authController = require('./controllers/auth')
 app.use('/auth', require('./controllers/auth'))
 app.use('/', authController)
 
+app.get('/logout', function (req, res) {
+  req.logout()
+  console.log('logged out')
+  res.redirect('/')
+})
+function loggedIn (req, res, next) {
+  if (req.user) {
+    next()
+  } else {
+    res.redirect('/login')
+  }
+}
+
 // =========
 // gym route
 // ==========
+
 var gymController = require('./controllers/gymControl')
-app.use('/gym', require('./controllers/gymControl'))
+app.use('/gym', loggedIn, require('./controllers/gymControl'))
 app.use('/', gymController)
 
 // ============
@@ -71,6 +82,8 @@ app.get('/gym/:id/reviews/new', function (req, res) {
 })
 
 // ============
+// server
+// ==========
 
 var server
 

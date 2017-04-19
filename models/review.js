@@ -6,6 +6,6 @@ var reviewSchema = new mongoose.Schema({
   rating: Number
 
 })
-var Review = mongoose.model('review', reviewSchema)
+var Review = mongoose.model('Review', reviewSchema)
 
 module.exports = Review

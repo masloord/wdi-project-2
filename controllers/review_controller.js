@@ -17,7 +17,7 @@ router.route('/gym/:id/review')
       console.log('abt to save review inside gym')
       gym.review.push(newReview)
       gym.save()
-      res.redirect(/gym/ + gym.id)
+      res.redirect('/gym/' + gym.id)
     })
   })
 })
@@ -31,6 +31,12 @@ router.route('/gym/:id/review/new')
     console.log(req.body)
     res.render('reviewtab/new', {gym: foundGym})
   })
+})
+
+router.route('/gym/:id/review/:review_id/edit')
+.get(function (req, res) {
+  req.params.id
+  res.render('reviewtab/edit', {gym_id: req.params.id})
 })
 
 module.exports = router

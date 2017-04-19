@@ -1,0 +1,18 @@
+<ul>
+  name:<li><%=Gym.name%></li><br>
+  description:<li><%=Gym.description%></li><br>
+  capcity:<li><%=Gym.capcity%></li><br>
+
+  <button><a href="/gym/<%= Gym._id %>/edit">Edit</a></button>
+  <form class="deleteForm "method="POST" action=<%= "/gym/" + Gym._id + "?_method=DELETE" %> >
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+
+</ul>
+<button><a href="/gym/<%= Gym._id %>/review/new">add comment</a></button>
+<% Gym.review.forEach(function(review){ %>
+  <p><%- review.title%></p>
+  <p><%- review.description%></p>
+  <p><%- review.rating%></p><br>
+<%})%>

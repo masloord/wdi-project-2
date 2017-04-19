@@ -43,7 +43,7 @@ router.route('/gym/new')
 })
 
 // ======================
-// show gym own my owner
+// show gym owned my owner
 // =====================
 router.route('/gym/user')
 .get(function (req, res) {
@@ -72,11 +72,12 @@ router.route('/gym/:id/edit')
     }
   })
 })
-router.route('/gym/:id')
+router.route('/gym/:id') //show one
 .get(function (req, res) {
-  Gym.findById(req.params.id, (err, foundGym) => {
+  Gym.findById(req.params.id).populate('review').exec(function (err, foundGym) {
     if (err) throw err
-    res.send(foundGym)
+    console.log(foundGym)
+    res.render('gymtab/showone', {Gym: foundGym})
   })
 })
 
@@ -89,7 +90,7 @@ router.route('/gym/:id')
       capcity: req.body.capcity
     }, function (err, updatedGym) {
       if (err) res.redirect('/')
-      res.redirect('/gym/user')
+      res.redirect('/gym/' + req.params.id)
     })
 })
 // ===============
@@ -103,9 +104,5 @@ router.route('/gym/:id')
      res.redirect('/gym/user')
    })
 })
-module.exports = router
 
-// =====
-// delete
-// =======
-// router.route('/gym/:id')
+module.exports = router

@@ -26,8 +26,11 @@ app.use(session({
 var passport = require('./config/passport')
 app.use(passport.initialize())
 app.use(passport.session())
+
 app.use(methodOverride('_method'))
+
 app.use(flash())
+
 app.use(require('morgan')('dev'))
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)
@@ -72,15 +75,13 @@ function loggedIn (req, res, next) {
 // ==========
 
 var gymController = require('./controllers/gymControl')
-// app.use('/gym', loggedIn, require('./controllers/gymControl'))
-app.use('/',loggedIn, gymController)
+app.use('/', loggedIn, gymController)
 
 // ============
 // reviews route
 // =============
-app.get('/gym/:id/reviews/new', function (req, res) {
-
-})
+var reviewController = require('./controllers/review_controller')
+app.use('/', loggedIn, reviewController)
 
 // ============
 // server

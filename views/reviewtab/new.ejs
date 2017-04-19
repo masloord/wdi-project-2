@@ -1,0 +1,19 @@
+<h1>Create new comment for <%- gym.name%> </h1>
+<form action="/gym/<%= gym.id %>/review" method="POST">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input id="title" class="form-control" type="title" name="title">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input id="description" class="description" type="name" name="description">
+  </div>
+
+  <div class="form-group">
+    <label for="rating">Rating</label>
+    <input id="rating" class="rating" type="Number" name="rating">
+  </div>
+
+  <input class="btn btn-primary" type="submit">
+</form>

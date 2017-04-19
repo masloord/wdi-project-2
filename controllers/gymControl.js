@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var Gym = require('../models/gym')
+var Review = require('../models/review')
 
 // ======
 // show allGym
@@ -10,7 +11,7 @@ router.route('/gym')
   Gym.find({}, function (err, allGym) {
     if (err) res.send(err)
         // if user is not owner cannot view gym page
-    res.render('gym', {
+    res.render('gymtab/gym', {
       allGym: allGym
     })
   })
@@ -21,7 +22,7 @@ router.route('/gym')
 router.route('/gym/new')
 .get(function (req, res) {
   if (!req.user.isUser) {
-    res.render('new')
+    res.render('gymtab/new')
   } else {
     res.send('sign in as Owner')
   }
@@ -48,7 +49,7 @@ router.route('/gym/user')
 .get(function (req, res) {
   Gym.find({user: req.user.id}, function (err, Gym) {
     if (err) res.send(err)
-    res.render('gymlist', {
+    res.render('gymtab/gymlist', {
       Gym: Gym
     })
   })
@@ -63,14 +64,22 @@ router.route('/gym/:id/edit')
   console.log('user', req.user.id)
   Gym.findById(req.params.id, function (err, foundGym) {
     if (err) res.send(err)
-    if (req.user.id === foundGym.id) {
-      // authenticate if is user for gym then can edit
+    if (req.user.id == foundGym.user) {
       console.log(req.body)
-      res.render('show', {gym: foundGym})
+      res.render('gymtab/show', {gym: foundGym})
+    } else {
+      res.send('wrong user')
     }
   })
 })
 router.route('/gym/:id')
+.get(function (req, res) {
+  Gym.findById(req.params.id, (err, foundGym) => {
+    if (err) throw err
+    res.send(foundGym)
+  })
+})
+
 .put(function (req, res) {
   console.log('update')
   Gym.findOneAndUpdate(req.params.id,
@@ -80,9 +89,13 @@ router.route('/gym/:id')
       capcity: req.body.capcity
     }, function (err, updatedGym) {
       if (err) res.redirect('/')
-      res.redirect('/gym')
+      res.redirect('/gym/user')
     })
 })
+// ===============
+// delete
+// ===============
+
 .delete(function (req, res) {
   Gym.findByIdAndRemove(req.params.id,
    function (err, Gym) {

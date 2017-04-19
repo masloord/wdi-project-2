@@ -4,7 +4,7 @@
   <li><%= detail.description %></li>
   <li><%= detail.capcity %></li>
 
-  <button><a href="gym/<%= detail._id%>/edit">Edit</a></button>
+  <button><a href="/gym/<%= detail._id %>/edit">Edit</a></button>
   <form class="deleteForm "method="POST" action=<%= "/gym/" + detail._id + "?_method=DELETE" %>>
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>

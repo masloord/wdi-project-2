@@ -4,6 +4,7 @@ var mongoose = require('mongoose')
 var flash = require('connect-flash')
 var bodyPaser = require('body-parser')
 var ejsLayouts = require('express-ejs-layouts')
+var methodOverride = require('method-override')
 
 require('dotenv').config({ silent: true })
 var session = require('express-session')
@@ -25,7 +26,7 @@ app.use(session({
 var passport = require('./config/passport')
 app.use(passport.initialize())
 app.use(passport.session())
-
+app.use(methodOverride('_method'))
 app.use(flash())
 app.use(require('morgan')('dev'))
 app.set('view engine', 'ejs')
@@ -71,8 +72,8 @@ function loggedIn (req, res, next) {
 // ==========
 
 var gymController = require('./controllers/gymControl')
-app.use('/gym', loggedIn, require('./controllers/gymControl'))
-app.use('/', gymController)
+// app.use('/gym', loggedIn, require('./controllers/gymControl'))
+app.use('/',loggedIn, gymController)
 
 // ============
 // reviews route

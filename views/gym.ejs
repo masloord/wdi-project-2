@@ -1,23 +1,21 @@
- <% console.log(isUser) %>
+
 <h1>Gym page</h1>
-<p><%- allGym%></p>
 
 
-<form action="/gym" method="POST">
-  <div class="form-group">
-    <label for="name">name</label>
-    <input id="name" class="form-control" type="name" name="name">
-  </div>
+<% allGym.forEach(function(detail){ %>
+  <ul>
+  <strong><%= detail.name %></strong>
+  <li><%= detail.description %></li>
+  <li><%= detail.capcity %></li>
 
-  <div class="form-group">
-    <label for="description">description</label>
-    <input id="description" class="description" type="name" name="description">
-  </div>
+  <button><a href="gym/<%= detail._id%>/edit">Edit</a></button>
+  <form class="deleteForm "method="POST" action=<%= "/gym/" + detail._id + "?_method=DELETE" %>>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
 
-  <div class="form-group">
-    <label for="capcity">capcity</label>
-    <input id="capcity" class="capcity" type="Number" name="capcity">
-  </div>
+  </ul>
+  <br>
 
-  <input class="btn btn-primary" type="submit">
-</form>
+<% }) %>
+
+<li><a href="/gym/new">add new gym</a></li>

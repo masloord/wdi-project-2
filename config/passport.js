@@ -34,7 +34,7 @@ passport.use('local-signup', new LocalStrategy({
 
 passport.use('local-login', new LocalStrategy({
   usernameField: 'email',
-  passwordField: 'password',
+  passwordField: 'password'
   // passReqToCallback: true
 }, function (givenEmail, givenPassword, next) {
   User.findByEmail(givenEmail, function (err, foundUser) {

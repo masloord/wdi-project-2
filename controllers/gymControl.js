@@ -16,8 +16,8 @@ router.route('/gym')
     })
   })
 })
-// ======     //1)find req param id
-// create     //2)
+// ======
+// create
 // ======
 router.route('/gym/new')
 .get(function (req, res) {
@@ -66,17 +66,17 @@ router.route('/gym/:id/edit')
     if (err) res.send(err)
     if (req.user.id == foundGym.user) {
       console.log(req.body)
-      res.render('gymtab/show', {gym: foundGym})
+      res.render('gymtab/edit', {gym: foundGym})
     } else {
       res.send('wrong user')
     }
   })
 })
-router.route('/gym/:id') //show one
+router.route('/gym/:id') // show one
 .get(function (req, res) {
   Gym.findById(req.params.id).populate('review').exec(function (err, foundGym) {
     if (err) throw err
-    console.log(foundGym)
+    // console.log(foundGym)
     res.render('gymtab/showone', {Gym: foundGym})
   })
 })

@@ -10,9 +10,14 @@
 
 
 </ul>
-<button><a href="/gym/<%= Gym._id %>/review/new">add comment</a></button>
+<button><a href="/gym/<%= Gym._id %>/review/new">Add Review</a></button>
 <% Gym.review.forEach(function(review){ %>
   <p><%- review.title%></p>
   <p><%- review.description%></p>
   <p><%- review.rating%></p><br>
+  <button><a href="/gym/<%= Gym._id %>/review/<%= review._id %>/edit">
+  Edit Review </a></button><br>
+  <form class="deleteForm "method="POST"
+  action= "/gym/<%= Gym._id %>/review/<%= review._id%>?_method=DELETE">
+          <button type="submit" class="btn btn-danger">Delete Review</button>
 <%})%>

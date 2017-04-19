@@ -35,8 +35,27 @@ router.route('/gym/:id/review/new')
 
 router.route('/gym/:id/review/:review_id/edit')
 .get(function (req, res) {
-  req.params.id
-  res.render('reviewtab/edit', {gym_id: req.params.id})
+  Review.findById(req.params.review_id, function (err, foundReview) {
+    if (err) res.redirect('back')
+    res.render('reviewtab/edit', {
+      gym_id: req.params.id,
+      review: foundReview
+    })
+  })
+})
+router.route('/gym/:id/review/:review_id/')
+.put(function (req, res) {
+  Review.findByIdAndUpdate(req.params.review_id, req.body, function (err, updatedReview) {
+    if (err)res.redirect('back')
+    res.redirect('/gym/' + req.params.id)
+  })
+})
+.delete(function (req, res) {
+  Review.findByIdAndRemove(req.params.review_id,
+   function (err, Gym) {
+     if (err) res.redirect('back')
+     res.redirect('/gym/' + req.params.id)
+   })
 })
 
 module.exports = router

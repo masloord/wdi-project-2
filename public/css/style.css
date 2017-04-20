@@ -1,0 +1,17 @@
+.gymdetail{
+  border: 1px solid black;
+  margin:5% auto;
+}
+.gymdetail button{
+  display: inline-block;
+  float:right;
+}
+.gymdetail h1,p{
+  display:block;
+  margin:2% auto;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}

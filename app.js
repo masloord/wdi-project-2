@@ -5,6 +5,7 @@ var flash = require('connect-flash')
 var bodyPaser = require('body-parser')
 var ejsLayouts = require('express-ejs-layouts')
 var methodOverride = require('method-override')
+const path = require('path')
 
 require('dotenv').config({ silent: true })
 var session = require('express-session')
@@ -37,7 +38,7 @@ app.use(ejsLayouts)
 
 app.use(bodyPaser.urlencoded({extended: false}))
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // routing
 

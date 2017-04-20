@@ -74,13 +74,20 @@ router.route('/gym/:id/edit')
 })
 router.route('/gym/:id') // show one
 .get(function (req, res) {
-  Gym.findById(req.params.id).populate('review').exec(function (err, foundGym) {
+  Gym.findById(req.params.id).populate({
+    path: 'review',
+    populate: {
+      path: 'author'
+    }
+  }).exec(function (err, foundGym) {
     if (err) throw err
     // console.log(foundGym)
-    res.render('gymtab/showone', {Gym: foundGym})
+    res.render('gymtab/showone', {
+      Gym: foundGym,
+      currentUser: req.user.id
+    })
   })
 })
-
 .put(function (req, res) {
   console.log('update')
   Gym.findOneAndUpdate(req.params.id,
@@ -100,8 +107,10 @@ router.route('/gym/:id') // show one
 .delete(function (req, res) {
   Gym.findByIdAndRemove(req.params.id,
    function (err, Gym) {
-     if (err) res.redirect('/')
-     res.redirect('/gym/user')
+     if (req.user.id == Gym.user) {
+       if (err) res.redirect('/')
+       res.redirect('/gym/user')
+     }
    })
 })
 

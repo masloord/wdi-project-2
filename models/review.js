@@ -4,7 +4,7 @@ var User = require('./user')
 var reviewSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'gymUser'
   },
   title: String,
   description: String,

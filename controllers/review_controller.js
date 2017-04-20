@@ -66,7 +66,7 @@ router.route('/gym/:id/review/:review_id/')
 // =======
 // delete
 // =======
-.delete(function (req, res) {
+.delete(checkReviewOwnership, function (req, res) {
   Review.findByIdAndRemove(req.params.review_id,
    function (err, Gym) {
      if (err) res.redirect('back')

@@ -40,7 +40,7 @@ passport.use('local-login', new LocalStrategy({
     if (err) return next(err)
     if (!foundUser) {
       console.log('no user')
-      next(null, false)
+      return next(null, false)
     }
     // var givenPassword = givenPassword
     if (foundUser.validPassword(givenPassword)) {

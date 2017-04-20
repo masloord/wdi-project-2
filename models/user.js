@@ -67,6 +67,6 @@ gymUserSchema.methods.validPassword = function (givenPassword) {
   return bcrypt.compareSync(givenPassword, hashedpassword)
 }
 
-var GymUser = mongoose.model('GymUser', gymUserSchema)
+var GymUser = mongoose.model('gymUser', gymUserSchema)
 
 module.exports = GymUser

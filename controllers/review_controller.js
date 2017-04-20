@@ -3,25 +3,9 @@ var router = express.Router()
 var Review = require('../models/review')
 var Gym = require('../models/gym')
 
-router.route('/gym/:id/review')
-.post(function (req, res) {
-  Gym.findById(req.params.id, function (err, gym) {
-    if (err) res.send(err)
-    var newReview = new Review({
-      title: req.body.title,
-      description: req.body.description,
-      rating: req.body.rating
-    })
-    newReview.save(function (err, newReview) {
-      if (err) res.send(err)
-      console.log('abt to save review inside gym')
-      gym.review.push(newReview)
-      gym.save()
-      res.redirect('/gym/' + gym.id)
-    })
-  })
-})
-
+// =======
+// create
+// =======
 router.route('/gym/:id/review/new')
 .get(function (req, res) {
   console.log('new review')
@@ -33,8 +17,34 @@ router.route('/gym/:id/review/new')
   })
 })
 
+router.route('/gym/:id/review')
+.post(function (req, res) {
+  Gym.findById(req.params.id, function (err, gym) {
+    if (err) res.send(err)
+    var newReview = new Review({
+      title: req.body.title,
+      description: req.body.description,
+      rating: req.body.rating,
+      author: req.user.id,
+      chiobuIndex: req.body.chiobuIndex,
+      hunkIndex: req.body.hunkIndex
+    })
+    newReview.save(function (err, newReview) {
+      if (err) res.send(err)
+      console.log('abt to save review inside gym')
+      gym.review.push(newReview)
+      gym.save()
+      res.redirect('/gym/' + gym.id)
+    })
+  })
+})
+
+// =======
+// edit
+// =======
+
 router.route('/gym/:id/review/:review_id/edit')
-.get(function (req, res) {
+.get(checkReviewOwnership, function (req, res) {
   Review.findById(req.params.review_id, function (err, foundReview) {
     if (err) res.redirect('back')
     res.render('reviewtab/edit', {
@@ -43,6 +53,9 @@ router.route('/gym/:id/review/:review_id/edit')
     })
   })
 })
+// =======
+// update
+// =======
 router.route('/gym/:id/review/:review_id/')
 .put(function (req, res) {
   Review.findByIdAndUpdate(req.params.review_id, req.body, function (err, updatedReview) {
@@ -50,6 +63,9 @@ router.route('/gym/:id/review/:review_id/')
     res.redirect('/gym/' + req.params.id)
   })
 })
+// =======
+// delete
+// =======
 .delete(function (req, res) {
   Review.findByIdAndRemove(req.params.review_id,
    function (err, Gym) {
@@ -57,5 +73,23 @@ router.route('/gym/:id/review/:review_id/')
      res.redirect('/gym/' + req.params.id)
    })
 })
+// ===============================
+// middleware to authenticate user
+// =================================
+function checkReviewOwnership (req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log('user logged in')
+    Review.findById(req.params.review_id, function (err, review) {
+      if (err) res.redirect('back')
+      if (review.author == req.user.id) {
+        next()
+      } else {
+        res.redirect('back')
+      }
+    })
+  } else {
+    res.redirect('back')
+  }
+}
 
 module.exports = router

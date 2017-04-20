@@ -12,7 +12,17 @@
 
   <div class="form-group">
     <label for="rating">Rating</label>
-    <input class="rating" type="Number" name="rating"value: "<%= review.rating %>">
+    <input class="rating" type="Number" name="rating"value: "<%= review.rating %>"placeholder="Enter 1-5">
+  </div>
+
+  <div class="form-group">
+    <label for="chiobuIndex">Chiobu Index</label>
+    <input class="chiobuIndex" type="Number" name="chiobuIndex"value: "<%= review.chiobuIndex %>"placeholder="Enter 1-5">
+  </div>
+
+  <div class="form-group">
+    <label for="hunkIndex">Hunk Index</label>
+    <input class="hunkIndex" type="Number" name="hunkIndex"value: "<%= review.hunkIndex %>" placeholder="Enter 1-5">
   </div>
 
   <input class="btn btn-primary" type="submit">

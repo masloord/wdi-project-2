@@ -1,40 +1,40 @@
-#GYM COUNT
+#GYM COUNT#
 
-##Description
+##Description##
 Gymcount is web application for gym. It provides a information and review platform for users.
 
-##Objective
+##Objective##
 •Just aiming to code the logic
 •Have a project i can build on after the course
 •Find out about my strength and weaknesses in full stack development
 •Solve as many errors as possible by myself
 •Understand what i am referencing and coding
 
-##Motivation
+##Motivation##
 New user that are starting out in a new gym will usually be clueless about the facilities and the environment of the gym.
 By providing a information platform , new user can make wiser consumer decision before signing up a expensive membership at a gym.
 
-##Functionalities
+##Functionalities##
 •User creation and User authentication
 •RESTful routes CRUD of Gym
 •RESTful routes CRUD of Review
 •User Associations with Gym and Review using id reference
 
-##Case Diagram
+##Case Diagram##
 ![case diagram](/images/Gym Count.png?raw=true)
 
-##ER Diagram
+##ER Diagram##
 ![ER diagram](/images/Untitled_Diagram.png?raw=true)
 
-##Routes
-![ER diagram](/images/Routes.png?raw=true)
+##Routes##
+![Routes diagram](/images/Routes.png?raw=true)
 
-#Built with
+##Built with##
 •Express Node Js
 •bootstrap
 •Mongoose MongoDB
 
-##Improvement
+##Improvement##
 •Flash messages for log in and log out
 •Better CSS layout
 •Add more interactive rating system
@@ -42,14 +42,14 @@ By providing a information platform , new user can make wiser consumer decision 
 •TDD
 
 
-##Reference
+##Reference##
 MongoDB docs:https://docs.mongodb.com/
 Bootstrap :http://getbootstrap.com
 Express docs:https://expressjs.com/en/api.html
 YelpCamp Udemy Tuturial:https://www.udemy.com/the-web-developer-bootcamp/learn/v4/overview
 stackoverflow:http://stackoverflow.com/
 
-##Acknowledgement
+##Acknowledgement##
 Thanks to
 •GA WDI 9 classmate
 •TA Yisheng , Sharona

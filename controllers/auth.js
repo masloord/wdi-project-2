@@ -8,7 +8,7 @@ router.route('/register')
 .get(function (req, res) {
   if (req.isAuthenticated()) {
     req.flash('error', 'user alr logged in')
-    res.redirect('/')
+    return res.redirect('/')
   }
   res.render('auth/signup')
 })

@@ -64,7 +64,7 @@ router.route('/gym/:id/review/:review_id/')
 .put(function (req, res) {
   Review.findByIdAndUpdate(req.params.review_id, req.body, function (err, updatedReview) {
     if (err)res.redirect('back')
-    res.flash('success', 'Update Sucessful')
+    req.flash('success', 'Update Sucessful')
     res.redirect('/gym/' + req.params.id)
   })
 })

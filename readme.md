@@ -66,10 +66,13 @@ YelpCamp Udemy Tuturial:https://www.udemy.com/the-web-developer-bootcamp/learn/v
 
 stackoverflow:http://stackoverflow.com/
 
-##Acknowledgement
+## Acknowledgement
 Thanks to
 •GA WDI 9 classmate
 
 •TA Yisheng , Sharona
 
 •Prima
+# Heroku Deployment
+
+url(https://gymcount.herokuapp.com/)

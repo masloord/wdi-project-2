@@ -6,6 +6,10 @@ var User = require('../models/user')
 // User Auth
 router.route('/register')
 .get(function (req, res) {
+  if (req.isAuthenticated()) {
+    req.flash('error', 'user alr logged in')
+    res.redirect('/')
+  }
   res.render('auth/signup')
 })
 .post(passport.authenticate('local-signup', {

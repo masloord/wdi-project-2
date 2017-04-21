@@ -24,7 +24,7 @@ passport.use('local-signup', new LocalStrategy({
   })
   newUser.save(function (err, data) {
     if (err) {
-      return next(err)
+      return next(null, false)
     }
     next(null, data)
   })
@@ -36,9 +36,10 @@ passport.use('local-login', new LocalStrategy({
   // passReqToCallback: true
 }, function (givenEmail, givenPassword, next) {
   User.findByEmail(givenEmail, function (err, foundUser) {
-    if (err) return next(err)
+    if (err) return (err)
     if (!foundUser) {
-      console.log('no user')(null, false)
+      console.log('no user')
+      return next(null, false)
     }
     // var givenPassword = givenPassword
     if (foundUser.validPassword(givenPassword)) {

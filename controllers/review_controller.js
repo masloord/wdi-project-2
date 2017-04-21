@@ -30,7 +30,7 @@ router.route('/gym/:id/review')
       hunkIndex: req.body.hunkIndex
     })
     newReview.save(function (err, newReview) {
-      if (err) res.send(err)
+      if (err) res.redirect('/gym/' + gym.id)
       console.log('abt to save review inside gym')
       gym.review.push(newReview)
       gym.save()

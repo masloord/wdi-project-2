@@ -1,4 +1,4 @@
-<h1>Create new comment for <%- gym.name%> </h1>
+<h1>Create new review for <%- gym.name%> </h1>
 <form action="/gym/<%= gym.id %>/review" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <label for="description">Description</label>
-    <input id="description" class="description" type="name" name="description">
+    <input id="description" class="form-control" type="name" name="description" rows="3">
   </div>
 
   <div class="form-group">

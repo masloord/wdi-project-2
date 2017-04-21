@@ -30,11 +30,9 @@ By providing a information platform , new user can make wiser consumer decision 
 •User Associations with Gym and Review using id reference
 
 ## Case Diagram
-![case diagram](/images/Gym Count.png)
-
+![case diagram](images/Gym_Count.png)
 ## ER Diagram
-![ER diagram](/images/Untitled_Diagram.png)
-
+![ER diagram](images/Untitled_Diagram.png)
 ## Routes
 ![Routes diagram](/images/Routes.png?raw=true)
 

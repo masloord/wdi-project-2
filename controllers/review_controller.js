@@ -75,7 +75,7 @@ router.route('/gym/:id/review/:review_id/')
   Review.findByIdAndRemove(req.params.review_id,
    function (err, Gym) {
      if (err) res.redirect('back')
-     res.flash('success', 'Delete Sucessful')
+     req.flash('success', 'Delete Sucessful')
      res.redirect('/gym/' + req.params.id)
    })
 })

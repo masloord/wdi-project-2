@@ -15,3 +15,17 @@
   max-width: 960px;
   margin: 0 auto;
 }
+
+ .rating {
+  padding-bottom: 20px;
+}
+
+.chiobuIndex , .hunkIndex{
+  color:red;
+  margin-top: 3%;
+}
+
+.description{
+  color:white;
+  background-color: black;
+}

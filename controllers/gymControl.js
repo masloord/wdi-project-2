@@ -24,7 +24,8 @@ router.route('/gym/new')
   if (!req.user.isUser) {
     res.render('gymtab/new')
   } else {
-    res.send('sign in as Owner')
+    req.flash('error', 'Please sign in as Owner')
+    res.redirect('/auth/login')
   }
 })
 .post(function (req, res, next) {
@@ -38,6 +39,7 @@ router.route('/gym/new')
   })
   newGym.save(function (err, newGym) {
     if (err) res.send(err)
+    req.flash('success', 'Successfully created gym')
     res.redirect('/gym/user')
   })
 })
@@ -68,7 +70,8 @@ router.route('/gym/:id/edit')
       console.log(req.body)
       res.render('gymtab/edit', {gym: foundGym})
     } else {
-      res.send('wrong user')
+      req.flash('error', 'You dont own this gym')
+      res.redirect('/gym/' + req.params.id)
     }
   })
 })
@@ -84,7 +87,8 @@ router.route('/gym/:id') // show one
     // console.log(foundGym)
     res.render('gymtab/showone', {
       Gym: foundGym,
-      currentUser: req.user.id
+      currentUser: req.user.id,
+      currentisUser: req.user
     })
   })
 })
@@ -97,6 +101,7 @@ router.route('/gym/:id') // show one
       capcity: req.body.capcity
     }, function (err, updatedGym) {
       if (err) res.redirect('/')
+      req.flash('success', 'updated gym')
       res.redirect('/gym/' + req.params.id)
     })
 })
@@ -109,6 +114,7 @@ router.route('/gym/:id') // show one
    function (err, Gym) {
      if (req.user.id == Gym.user) {
        if (err) res.redirect('/')
+       req.flash('success', 'Deleted gym')
        res.redirect('/gym/user')
      }
    })

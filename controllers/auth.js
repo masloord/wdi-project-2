@@ -6,9 +6,7 @@ var User = require('../models/user')
 // User Auth
 router.route('/register')
 .get(function (req, res) {
-  res.render('auth/signup', {
-    flash: req.flash('error')
-  })
+  res.render('auth/signup')
 })
 .post(passport.authenticate('local-signup', {
   successRedirect: '/',
@@ -25,7 +23,7 @@ router.route('/login')
 })
 .post(
   passport.authenticate('local-login', {
-    successRedirect: '/',
+    successRedirect: '/gym/user',
     failureRedirect: '/auth/login'
   })
 )

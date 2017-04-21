@@ -24,7 +24,6 @@ passport.use('local-signup', new LocalStrategy({
   })
   newUser.save(function (err, data) {
     if (err) {
-      req.flash('error', 'Registration failed')
       return next(err)
     }
     next(null, data)
@@ -39,8 +38,7 @@ passport.use('local-login', new LocalStrategy({
   User.findByEmail(givenEmail, function (err, foundUser) {
     if (err) return next(err)
     if (!foundUser) {
-      console.log('no user')
-      return next(null, false)
+      console.log('no user')(null, false)
     }
     // var givenPassword = givenPassword
     if (foundUser.validPassword(givenPassword)) {

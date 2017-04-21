@@ -34,6 +34,7 @@ router.route('/gym/:id/review')
       console.log('abt to save review inside gym')
       gym.review.push(newReview)
       gym.save()
+      req.flash('success', 'added new review')
       res.redirect('/gym/' + gym.id)
     })
   })
@@ -46,7 +47,10 @@ router.route('/gym/:id/review')
 router.route('/gym/:id/review/:review_id/edit')
 .get(checkReviewOwnership, function (req, res) {
   Review.findById(req.params.review_id, function (err, foundReview) {
-    if (err) res.redirect('back')
+    if (err) {
+      req.flash('error', 'error has occured')
+      res.redirect('back')
+    }
     res.render('reviewtab/edit', {
       gym_id: req.params.id,
       review: foundReview
@@ -60,6 +64,7 @@ router.route('/gym/:id/review/:review_id/')
 .put(function (req, res) {
   Review.findByIdAndUpdate(req.params.review_id, req.body, function (err, updatedReview) {
     if (err)res.redirect('back')
+    res.flash('success', 'Update Sucessful')
     res.redirect('/gym/' + req.params.id)
   })
 })
@@ -70,6 +75,7 @@ router.route('/gym/:id/review/:review_id/')
   Review.findByIdAndRemove(req.params.review_id,
    function (err, Gym) {
      if (err) res.redirect('back')
+     res.flash('success', 'Delete Sucessful')
      res.redirect('/gym/' + req.params.id)
    })
 })

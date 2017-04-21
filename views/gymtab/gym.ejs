@@ -1,14 +1,15 @@
-
+<% include ../partial/nav_homepage %>
 <h1>Gym page</h1>
 
 
 <% allGym.forEach(function(detail){ %>
-  <ul>
-  <strong><%= detail.name %></strong>
-  <li><%= detail.description %></li>
-  <li><%= detail.capcity %></li>
+  <h2><strong><%= detail.name %></strong></h2>
+
+  <p><%= detail.description %></p>
+  <p><strong>Capacity:<strong><%= detail.capcity %></p>
+
     <button><a href="/gym/<%= detail._id %>">show </a></button>
-  </ul>
+
 <br>
 
 <% }) %>

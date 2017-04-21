@@ -1,31 +1,67 @@
-<div class="gymdetail">
-<div class="container-fluid">
-  <div class="row">
-    <h1><%=Gym.name%><br></h1>
-    <p>description:<%=Gym.description%><br></p>
-    <p>capacity:<%=Gym.capcity%></li></p>
-  <% if(currentUser == Gym.user){%>
-    <button class="btn btn-warning"><a href="/gym/<%= Gym._id %>/edit">Edit</a></button>
-    <form class="deleteForm "method="POST" action=<%= "/gym/" + Gym._id + "?_method=DELETE" %> >
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-        <%}%>
+<% include ../partial/nav_gymOwner %>
+    <% include ../partial/header_flash %>
 
-  </div>
-</div>
-</div>
-<button><a href="/gym/<%= Gym._id %>/review/new">Add Review</a></button>
-<% Gym.review.forEach(function(review){ %>
-  <p><%- review.author.name%></p>
-  <p><%- review.title%></p>
-  <p><%- review.description%></p>
-  <p><%- review.rating%></p><br>
+        <div class="gymdetail">
+            <div class="container-fluid">
+                <div class="row">
+                    <h1><%=Gym.name%><br></h1>
+                    <p>description:
+                        <%=Gym.description%><br></p>
+                    <p>capacity:
+                        <%=Gym.capcity%>
+                            </li>
+                    </p>
+                    <% if(currentUser == Gym.user){%>
+                        <button class="btn btn-warning"><a href="/gym/<%= Gym._id %>/edit">Edit</a></button>
+                        <form class="deleteForm " method="POST" action=<%="/gym/" + Gym._id + "?_method=DELETE" %> >
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <%}%>
 
-  <% if(currentUser == review.author.id){%>
-  <button class="btn btn-warning"><a href="/gym/<%= Gym._id %>/review/<%= review._id %>/edit">
-  Edit Review </a></button><br>
-  <form class="deleteForm "method="POST"
-  action= "/gym/<%= Gym._id %>/review/<%= review._id%>?_method=DELETE">
-          <button type="submit" class="btn btn-danger">Delete Review</button>
-<% } %>
-<%})%>
+                </div>
+            </div>
+        </div>
+
+        <button><a href="/gym/<%= Gym._id %>/review/new">Add Review</a></button>
+
+
+        <% Gym.review.forEach(function(review){ %>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><%- review.author.name%></h3>
+                </div>
+                <div class="panel-body">
+
+                    <h4>Title: <%- review.title%></h4><br>
+
+                    <div class="rating">
+                        <p1>Rating:
+                            <%- review.rating%>
+                        </p1>
+                    </div>
+                    <div class="description">
+                        <p1>
+                            <%- review.description%>
+                        </p1>
+                    </div>
+                    <div class="chiobuIndex">
+                        <p1>ChioBu Index:
+                            <%- review.chiobuIndex%>
+                        </p1>
+                    </div>
+                    <div class="hunkIndex" <p1>Hunk Index
+                        <%- review.hunkIndex%>
+                            </p1>
+                            <div>
+                            </div>
+
+
+                    </div>
+                </div>
+                <% if(currentUser == review.author.id){%>
+                    <button class="btn btn-warning"><a href="/gym/<%= Gym._id %>/review/<%= review._id %>/edit">
+Edit Review </a></button><br>
+                    <form class="deleteForm " method="POST" action="/gym/<%= Gym._id %>/review/<%= review._id%>?_method=DELETE">
+                        <button type="submit" class="btn btn-danger">Delete Review</button>
+                        <% } %>
+                            <%})%>

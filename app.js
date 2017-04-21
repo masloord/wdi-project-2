@@ -40,15 +40,17 @@ app.use(bodyPaser.urlencoded({extended: false}))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+// passing flash into route
+app.use(function (req, res, next) {
+  res.locals.error = req.flash('error')
+  res.locals.success = req.flash('success')
+  next()
+})
+
 // routing
 
 app.get('/', function (req, res) {
   res.render('homepage')
-})
-app.get('/youarelogin', function (req, res) {
-  if (!req.isAuthenticated()) {
-    res.render('youarelogin')
-  }
 })
 
 // =======
@@ -61,12 +63,14 @@ app.use('/', authController)
 app.get('/logout', function (req, res) {
   req.logout()
   console.log('logged out')
+  req.flash('success', 'You have successfully logged out')
   res.redirect('/')
 })
 function loggedIn (req, res, next) {
   if (req.user) {
     next()
   } else {
+    req.flash('error', 'Please sign in')
     res.redirect('/login')
   }
 }

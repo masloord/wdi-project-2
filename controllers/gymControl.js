@@ -1,7 +1,10 @@
 var express = require('express')
+var app = express()
 var router = express.Router()
 var Gym = require('../models/gym')
 var Review = require('../models/review')
+
+
 
 // ======
 // show allGym
@@ -10,7 +13,6 @@ router.route('/gym')
 .get(function (req, res) {
   Gym.find({}, function (err, allGym) {
     if (err) res.send(err)
-        // if user is not owner cannot view gym page
     res.render('gymtab/gym', {
       allGym: allGym
     })

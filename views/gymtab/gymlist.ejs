@@ -2,6 +2,9 @@
 
 <% Gym.forEach(function(detail){ %>
   <p1> name:<strong><%= detail.name %></strong></p1><br>
+
+  <button><a href="/gym/<%= detail._id%>/customer/new">new customer </a></button>
+  <button><a href="/gym/<%= detail._id%>/customer/signin">sign in and out customer </a></button>
   <button><a href="/gym/<%= detail._id %>">show </a></button>
 
   <br>

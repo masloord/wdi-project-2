@@ -1,0 +1,19 @@
+<% Gym.forEach(function(detail){ %>
+  <ul>
+  <strong><%= detail.name %></strong>
+  <li><%= detail.description %></li>
+  <li><%= detail.capcity %></li>
+    <li><%= detail.customer.length %></li>
+
+
+  <button><a href="gym/<%= detail._id%>/edit">Edit</a></button>
+  <form class="deleteForm "method="POST" action=<%= "/gym/" + detail._id + "?_method=DELETE" %>>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+  </ul>
+  <br>
+
+<% }) %>
+
+<li><a href="gym/new">add new gym</a></li>

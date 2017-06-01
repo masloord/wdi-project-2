@@ -6,7 +6,6 @@ var bodyPaser = require('body-parser')
 var ejsLayouts = require('express-ejs-layouts')
 var methodOverride = require('method-override')
 const path = require('path')
-
 require('dotenv').config({ silent: true })
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session)
@@ -80,24 +79,72 @@ function loggedIn (req, res, next) {
 // ==========
 
 var gymController = require('./controllers/gymControl')
-app.use('/', loggedIn, gymController)
+app.use('/', gymController)
 
 // ============
 // reviews route
 // =============
 var reviewController = require('./controllers/review_controller')
 app.use('/', loggedIn, reviewController)
-
+// ============
+// customers route
+// =============
+var customerController = require('./controllers/customer_controller')
+app.use('/', loggedIn, customerController)
 // ============
 // server
 // ==========
+var server = require('http').Server(app)
+var io = require('socket.io')(server)
+var mqtt = require('mqtt')
+var options = {
+  port: 18490,
+  host: 'mqtt://m10.cloudmqtt.com',
+  clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
+  username: 'oanyjkay',
+  password: 'Y1vUm-bItNPi',
+  keepalive: 60,
+  reconnectPeriod: 1000,
+  protocolId: 'MQIsdp',
+  protocolVersion: 3,
+  clean: true,
+  encoding: 'utf8',
+  useSSL: true
+}
 
-var server
+var client = mqtt.connect('mqtt://m10.cloudmqtt.com', options)
+
+client.on('connect', function () { // When connected
+  console.log('connected')
+    // subscribe to a topic
+  client.subscribe('topic1/#', function () {
+        // when a message arrives, do something with it
+    client.on('message', function (topic, message, packet) {
+      console.log("Received '" + message + "' on '" + topic + "'")
+
+      var data = message.toString('utf8')
+      console.log(data)
+      io.emit('rfid', data)
+    })
+  })
+})
+
+io.on('connection', function (socket) {
+  console.log('a user connected')
+  socket.on('disconnect', function () {
+    console.log('user disconnected')
+  })
+})
+
 
 if (process.env.NODE_ENV === 'gymcount') {
-  server = app.listen(process.env.PORT || 4000)
+  server.listen(process.env.PORT || 3000, function () {
+    console.log('listening on *:3000')
+  })
 } else {
-  server = app.listen(process.env.PORT || 3000)
+  server.listen(process.env.PORT || 4000, function () {
+    console.log('listening on *:4000')
+  })
 }
 
 module.exports = server

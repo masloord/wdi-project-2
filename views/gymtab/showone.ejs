@@ -7,8 +7,12 @@
                     <h1><%=Gym.name%><br></h1>
                     <p>description:
                         <%=Gym.description%><br></p>
-                    <p>capacity:
+                    <p>max capacity:
                         <%=Gym.capcity%>
+                            </li>
+                    </p>
+                    <p>current capacity:
+                        <%=Gym.customer.length%>
                             </li>
                     </p>
                     <% if(currentUser == Gym.user){%>

@@ -1,0 +1,42 @@
+<form action="/gym/<%= gym.id %>/customer/signup" method="POST">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input id="name" class="form-control" type="name" name="name">
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input id="address" class="form-control" type="name" name="address" rows="3">
+  </div>
+
+  <div class="form-group">
+    <label for="rfid">Rfid</label>
+    <input id="rfid" class="rfid" type="password" name="rfid" onkeydown="return false;">
+  </div>
+
+<button id='signup' type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+$('#signup').hide()
+$(function(){
+  var socket = io.connect()
+  var $rfid = $('#rfid')
+
+  socket.on('rfid', function(data){
+    console.log(data)
+    $('#rfid').val(data)
+    if($('#rfid').val().length ==0){
+        $('#signup').hide();
+
+    }
+    else {
+        $('#signup').show();
+
+      }
+  })
+})
+</script>

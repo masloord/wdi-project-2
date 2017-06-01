@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var Review = require('./review')
 var User = require('./user')
+var Customer = require('./customer')
 
 var gymSchema = new mongoose.Schema({
   name: String,
@@ -15,7 +16,13 @@ var gymSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review'
     }
-  ]
+  ],
+  customer:[
+    {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'Customer'
+  }
+]
 
 })
 

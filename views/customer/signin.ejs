@@ -1,0 +1,35 @@
+<form method="POST">
+<div class="form-group">
+        <label>rfid</label>
+        <input id="rfid" type="password" class="form-control" name="rfid"
+        onkeydown="return false;">
+    </div>
+    <button id="signin" type="submit" class="btn btn-primary btn-lg" formaction="/gym/<%= gym.id %>/customer/signedin" method="POST">Sign in</button>
+    <button id="signout" type="submit" class="btn btn-primary btn-lg" formaction="/gym/<%= gym.id %>/customer/signedout" method="POST">Sign out</button>
+  </form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+$('#signin').hide();
+$('#signout').hide()
+
+$(function(){
+  var socket = io.connect()
+  var $rfid = $('#rfid')
+
+  socket.on('rfid', function(data){
+    console.log(data)
+    $('#rfid').val(data)
+    if($('#rfid').val().length ==0){
+        $('#signin').hide();
+        $('#signout').hide()
+    }
+    else {
+        $('#signin').show();
+        $('#signout').show()
+      }
+  })
+})
+
+</script>

@@ -19,6 +19,30 @@
 
 •Tracking of crowd in the gym
 
+#Code for mqtt
+
+```
+var client = mqtt.connect('mqtt://m10.cloudmqtt.com', options
+
+var client = mqtt.connect('mqtt://m10.cloudmqtt.com', options)
+client.on('connect', function () {
+  myPort.on('data', function (data) {
+    client.publish('topic1', data, function () {
+      console.log(typeof data)
+      console.log('Message is published ' + data)
+    })
+    })
+}) //published in local computer
+
+client.on('connect', function () { // When connected
+  console.log('connected')
+    // subscribe to a topic
+  client.subscribe('topic1/#', function () {
+        // when a message arrives, do something with it
+    client.on('message', function (topic, message, packet) {
+      console.log("Received '" + message + "' on '" + topic + "'")
+```
+
 ## Built with
 
 •Express Node Js
@@ -53,7 +77,9 @@
 •Refactoring of codes
 ## Reference
 Socket.io Docs: https://socket.io/
+
 Serialport npm:https://www.npmjs.com/package/serialport
+
 CloudMqtt : https://www.cloudmqtt.com/
 
 ## Heroku Deployment

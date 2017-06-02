@@ -12,7 +12,7 @@ var Review = require('../models/review')
 router.route('/gym')
 .get(function (req, res) {
   Gym.find({}, function (err, allGym) {
-    if (err) res.send(err)
+    if (err) res.redirect('back')
     res.render('gymtab/gym', {
       allGym: allGym
     })
@@ -40,7 +40,7 @@ router.route('/gym/new')
     user: req.user.id
   })
   newGym.save(function (err, newGym) {
-    if (err) res.send(err)
+    if (err) res.redirect('back')
     req.flash('success', 'Successfully created gym')
     res.redirect('/gym/user')
   })
@@ -52,7 +52,7 @@ router.route('/gym/new')
 router.route('/gym/user')
 .get(function (req, res) {
   Gym.find({user: req.user.id}, function (err, Gym) {
-    if (err) res.send(err)
+    if (err) res.redirect('back')
     res.render('gymtab/gymlist', {
       Gym: Gym
     })
@@ -67,7 +67,7 @@ router.route('/gym/:id/edit')
   console.log('find gym and update')
   console.log('user', req.user.id)
   Gym.findById(req.params.id, function (err, foundGym) {
-    if (err) res.send(err)
+    if (err) res.redirect('back')
     if (req.user.id == foundGym.user) {
       console.log(req.body)
       res.render('gymtab/edit', {gym: foundGym})
@@ -85,7 +85,7 @@ router.route('/gym/:id') // show one
       path: 'author'
     }
   }).exec(function (err, foundGym) {
-    if (err) throw err
+    if (err) res.redirect('back')
     // console.log(foundGym)
     res.render('gymtab/showone', {
       Gym: foundGym,

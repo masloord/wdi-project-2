@@ -10,7 +10,7 @@ router.route('/gym/:id/review/new')
 .get(function (req, res) {
   console.log('new review')
   Gym.findById(req.params.id, function (err, foundGym) {
-    if (err) res.send(err)
+    if (err) res.redirect('back')
       // authenticate if is user for gym then can edit
     console.log(req.body)
     res.render('reviewtab/new', {gym: foundGym})
@@ -20,7 +20,7 @@ router.route('/gym/:id/review/new')
 router.route('/gym/:id/review')
 .post(function (req, res) {
   Gym.findById(req.params.id, function (err, gym) {
-    if (err) res.send(err)
+    if (err) res.redirect('back')
     var newReview = new Review({
       title: req.body.title,
       description: req.body.description,
